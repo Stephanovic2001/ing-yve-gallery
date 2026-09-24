@@ -1,0 +1,19 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { ArrowRight, Check } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { imagery, pageMeta } from "@/lib/gallery-data";
+
+export const Route = createFileRoute("/about")({ head: () => pageMeta("About & Contact", "Meet Ing and Yve, the designers behind ING & YVE, and request a bespoke consultation.", "/about"), component: AboutPage });
+
+function AboutPage() { const [sent, setSent] = useState(false); return <>
+  <section className="section-shell py-20 sm:py-28"><div className="grid gap-12 lg:grid-cols-[.65fr_1.35fr]"><p className="editorial-kicker">Two disciplines · one language</p><h1 className="editorial-title text-6xl sm:text-8xl">A shared instinct<br/>for shape and soul.</h1></div></section>
+  <section className="grid lg:grid-cols-2"><div className="min-h-[520px]"><img src={imagery.foundersImage} width={1600} height={1200} alt="Founders Ing and Yve in their Dutch atelier" className="size-full object-cover"/></div><div className="flex items-center bg-surface px-6 py-20 sm:px-14 lg:px-20"><div className="max-w-2xl"><p className="editorial-kicker">Ing & Yve</p><p className="mt-6 font-display text-3xl leading-snug sm:text-4xl">“We make objects we would want to live with—expressive enough to hold a room, quiet enough to become part of your life.”</p><div className="mt-10 grid gap-8 border-t border-border pt-8 sm:grid-cols-2"><div><h2 className="font-display text-2xl">Ing</h2><p className="mt-3 text-xs leading-7 text-muted-foreground">Hat maker and lampshade designer. Ing brings architectural proportion, textile knowledge and a meticulous eye for finishing.</p></div><div><h2 className="font-display text-2xl">Yve</h2><p className="mt-3 text-xs leading-7 text-muted-foreground">Couture designer trained at Vivienne Westwood and ceramic artist. Yve shapes each base with instinctive, expressive movement.</p></div></div></div></div></section>
+  <section className="section-shell py-24 sm:py-36"><div className="grid gap-16 lg:grid-cols-[.75fr_1.25fr]"><div><p className="editorial-kicker">Private enquiries</p><h2 className="editorial-title mt-5 text-5xl">Let’s create<br/>something lasting.</h2><p className="mt-7 max-w-md text-sm leading-8 text-muted-foreground">For bespoke commissions, interior projects, trade enquiries or an atelier visit, tell us a little about what you have in mind.</p><div className="mt-10 text-xs leading-7"><p>atelier@ingandyve.nl</p><p>+31 (0)6 12 34 56 78</p><p className="mt-4 text-muted-foreground">Atelier visits by appointment<br/>The Netherlands</p></div></div>
+    <form className="grid gap-7" onSubmit={(event) => { event.preventDefault(); setSent(true); }}><div className="grid gap-7 sm:grid-cols-2"><Field label="Name"><Input required placeholder="Your name" /></Field><Field label="Email"><Input required type="email" placeholder="you@studio.com" /></Field></div><Field label="I am enquiring as"><select className="h-11 w-full border-b border-border bg-transparent text-sm"><option>Private client</option><option>Interior professional</option><option>Press / collaboration</option></select></Field><Field label="Your idea"><Textarea required className="min-h-36 border-x-0 border-t-0 px-0 shadow-none" placeholder="Tell us about the space, object or memory..." /></Field><Button type="submit" variant="gallery" className="justify-self-start">{sent ? <><Check/>Message received</> : <>Send enquiry <ArrowRight /></>}</Button></form>
+  </div></section>
+</>; }
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) { return <label className="grid gap-2 text-[10px] uppercase tracking-[0.16em] text-muted-foreground">{label}{children}</label>; }

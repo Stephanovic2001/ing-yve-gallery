@@ -1,0 +1,27 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowLeft, Check, Minus, Plus } from "lucide-react";
+import { useState } from "react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { imagery, pageMeta } from "@/lib/gallery-data";
+import { useGallery } from "@/components/site-shell";
+
+export const Route = createFileRoute("/product/$id")({
+  head: () => pageMeta("The Rock No. 1", "A handcrafted sculptural table lamp in stoneware, wool felt and double-stitched leather.", "/product/1", "product"),
+  component: ProductPage,
+});
+
+const tabs = ["Shade", "Piping", "Base"];
+function ProductPage() {
+  const { addToCart } = useGallery();
+  const [tab, setTab] = useState("Shade"); const [choice, setChoice] = useState("Warm felt"); const [quantity, setQuantity] = useState(1); const [added, setAdded] = useState(false);
+  const options = tab === "Shade" ? ["Warm felt", "Pearl linen", "Moss wool"] : tab === "Piping" ? ["Cognac", "Ink", "Natural"] : ["Charcoal", "Chalk", "Ocean"];
+  const add = () => { for (let i = 0; i < quantity; i++) addToCart(); setAdded(true); window.setTimeout(() => setAdded(false), 1800); };
+  return <div className="section-shell py-8 sm:py-12"><Link to="/collections" className="mb-8 inline-flex items-center gap-2 text-[9px] uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground"><ArrowLeft className="size-3" /> Back to collections</Link><div className="grid gap-12 lg:grid-cols-[1.25fr_.75fr] xl:gap-20">
+    <div className="grid gap-4 sm:grid-cols-2"><div className="aspect-[4/5] bg-muted sm:col-span-2"><img src={imagery.heroImage} width={1920} height={1088} alt="The Rock No. 1 sculptural lamp" className="size-full object-cover object-left" /></div><div className="aspect-square overflow-hidden bg-muted"><img src={imagery.craftImage} width={1600} height={1200} loading="lazy" alt="Close-up of hand-stitched leather trim" className="size-full object-cover" /></div><div className="aspect-square overflow-hidden bg-muted"><img src={imagery.collectionImage} width={1808} height={1200} loading="lazy" alt="The Rock in the ING & YVE collection" className="size-full object-cover object-center" /></div></div>
+    <aside className="lg:sticky lg:top-40 lg:self-start"><p className="editorial-kicker">The Rock collection · No. 1</p><h1 className="editorial-title mt-4 text-5xl sm:text-6xl">The Rock</h1><p className="mt-5 text-xl">€ 1.295</p><p className="mt-7 text-sm leading-7 text-muted-foreground">An elemental stoneware base paired with a softly pleated wool-felt shade. Quietly monumental, each base is shaped and fired by hand.</p><dl className="mt-8 grid grid-cols-2 gap-y-4 border-y border-border py-6 text-[10px] uppercase tracking-[0.13em]"><dt className="text-muted-foreground">Dimensions</dt><dd>Ø 54 × H 68 cm</dd><dt className="text-muted-foreground">Materials</dt><dd>Stoneware, felt, leather</dd><dt className="text-muted-foreground">Lead time</dt><dd>6–8 weeks</dd></dl>
+      <div className="mt-8"><div className="flex border-b border-border">{tabs.map((item) => <Button key={item} variant="concept" size="xs" className="flex-1 pb-3 text-foreground aria-pressed:border-b aria-pressed:border-accent aria-pressed:text-accent" aria-pressed={tab === item} onClick={() => { setTab(item); setChoice(item === "Shade" ? "Warm felt" : item === "Piping" ? "Cognac" : "Charcoal"); }}>{item}</Button>)}</div><p className="mt-5 text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Select {tab.toLowerCase()}</p><div className="mt-3 grid grid-cols-3 gap-2">{options.map((item) => <Button key={item} variant="quiet" className="h-auto min-h-12 px-2 text-[9px]" aria-pressed={choice === item} onClick={() => setChoice(item)}><span className={`size-3 rounded-full ${item.includes("Ocean") || item.includes("Ink") ? "bg-secondary" : item.includes("Pearl") || item.includes("Natural") ? "bg-muted" : "bg-accent"}`} />{item}</Button>)}</div></div>
+      <div className="mt-8 flex gap-3"><div className="flex border border-border"><Button variant="icon" size="icon" aria-label="Decrease quantity" onClick={() => setQuantity((q) => Math.max(1, q - 1))}><Minus /></Button><span className="flex w-8 items-center justify-center text-xs">{quantity}</span><Button variant="icon" size="icon" aria-label="Increase quantity" onClick={() => setQuantity((q) => q + 1)}><Plus /></Button></div><Button variant="gallery" className="flex-1" onClick={add}>{added ? <><Check /> Added</> : "Add to collection"}</Button></div>
+      <Accordion type="single" collapsible className="mt-9"><AccordionItem value="craft"><AccordionTrigger className="uppercase tracking-[0.13em]">Craftsmanship</AccordionTrigger><AccordionContent className="leading-7 text-muted-foreground">The ceramic body is built and finished by hand. Its felt shade is edged with our signature double-stitched leather bies.</AccordionContent></AccordionItem><AccordionItem value="origin"><AccordionTrigger className="uppercase tracking-[0.13em]">Origin & materials</AccordionTrigger><AccordionContent className="leading-7 text-muted-foreground">Made in small editions from 99% Dutch-sourced clay, wool felt, leather and fittings.</AccordionContent></AccordionItem></Accordion>
+    </aside></div></div>;
+}
