@@ -1,0 +1,22 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, Heart } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { imagery, pageMeta, products } from "@/lib/gallery-data";
+
+export const Route = createFileRoute("/collections")({
+  head: () => pageMeta("Collections", "Explore handcrafted table lamps, pendant lights and bespoke lighting objects by ING & YVE.", "/collections"),
+  component: CollectionsPage,
+});
+
+function CollectionsPage() {
+  const [category, setCategory] = useState("All");
+  const [material, setMaterial] = useState("All");
+  const filtered = products.filter((p) => (category === "All" || p.category === category) && (material === "All" || p.materialFilter === material));
+  return <>
+    <header className="section-shell pb-14 pt-20 sm:pb-20 sm:pt-28"><p className="editorial-kicker">The collection · 2026</p><div className="mt-4 flex flex-col justify-between gap-8 sm:flex-row sm:items-end"><h1 className="editorial-title text-6xl sm:text-8xl">Objects of light</h1><p className="max-w-md text-sm leading-7 text-muted-foreground">One-of-a-kind ceramic forms and hand-finished shades. No two pieces are entirely alike.</p></div></header>
+    <div className="sticky top-[116px] z-30 border-y border-border bg-background/95 backdrop-blur"><div className="section-shell flex flex-wrap items-center gap-x-8 gap-y-3 py-4"><span className="text-[9px] uppercase tracking-[0.18em] text-muted-foreground">Category</span>{["All", "Table Lamps", "Pendant Lights", "Custom"].map((item) => <Button key={item} variant="concept" size="xs" className="text-foreground aria-pressed:text-accent" aria-pressed={category === item} onClick={() => setCategory(item)}>{item}</Button>)}<span className="ml-0 text-[9px] uppercase tracking-[0.18em] text-muted-foreground sm:ml-auto">Material</span>{["All", "Ceramics", "Felt", "Wood"].map((item) => <Button key={item} variant="concept" size="xs" className="text-foreground aria-pressed:text-accent" aria-pressed={material === item} onClick={() => setMaterial(item)}>{item}</Button>)}</div></div>
+    <section className="section-shell py-12 sm:py-20"><div className="grid gap-x-5 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">{filtered.map((product, index) => <article key={product.id} className={index % 4 === 0 ? "sm:col-span-2 lg:col-span-2" : ""}><Link to="/product/$id" params={{ id: product.id }} className="group block"><div className={`image-reveal bg-muted ${index % 4 === 0 ? "aspect-[16/10]" : "aspect-[4/5]"}`}><img src={product.image} width={index % 4 === 0 ? 1920 : 1808} height={1200} loading="lazy" alt={product.title} className="size-full object-cover" style={{ objectPosition: product.position }} /></div><div className="mt-5 flex justify-between gap-5"><div><h2 className="font-display text-2xl">{product.title}</h2><p className="mt-2 text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{product.material}</p></div><div className="text-right"><p className="text-sm">{product.price}</p><Heart className="ml-auto mt-3 size-4 stroke-1 opacity-0 transition-opacity group-hover:opacity-100" /></div></div></Link></article>)}</div>{filtered.length === 0 && <p className="py-24 text-center font-display text-3xl text-muted-foreground">No objects in this selection.</p>}</section>
+    <section className="bg-primary text-primary-foreground"><div className="section-shell grid items-center gap-10 py-14 lg:grid-cols-[1.4fr_1fr_auto]"><div className="aspect-[16/7] overflow-hidden"><img src={imagery.heroImage} width={1920} height={1088} loading="lazy" alt="Karst the Friesian charity collection" className="size-full object-cover object-left" /></div><div><p className="text-[10px] uppercase tracking-[0.2em] text-accent">Limited charity edition</p><h2 className="mt-3 font-display text-4xl">Karst the Friesian</h2><p className="mt-4 text-sm leading-7 opacity-70">A sculptural collection rooted in Friesland. Ten percent of each piece supports KiKa’s work for children with cancer.</p></div><Button asChild variant="quiet" className="border-primary-foreground/30 text-primary-foreground"><Link to="/product/$id" params={{ id: "1" }}>Discover <ArrowRight /></Link></Button></div></section>
+  </>;
+}
