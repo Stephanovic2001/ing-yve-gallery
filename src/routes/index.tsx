@@ -30,13 +30,23 @@ function HomePage() {
     </div></section>
 
     <section className="border-y border-border bg-surface py-20 sm:py-28"><div className="section-shell"><div className="mb-10 flex items-end justify-between"><div><p className="editorial-kicker">Selected works</p><h2 className="editorial-title mt-3 text-4xl sm:text-5xl">Three expressions</h2></div><Link to="/collections" className="hidden items-center gap-2 text-[10px] uppercase tracking-[0.18em] sm:flex">All collections <ArrowRight className="size-3" /></Link></div>
-      <div className="grid gap-px bg-border lg:grid-cols-3">{[
-        ["Ode to Iris", "Ocean glaze · sculptural petals", "left"], ["The Rock", "Primitive form · tactile warmth", "center"], ["Bespoke Studio", "Your memory · made into light", "right"]
-      ].map(([title, text, position], index) => <Link to={index === 2 ? "/bespoke" : "/product/$id"} params={index === 2 ? undefined : { id: "1" }} key={title} className="group bg-background"><div className="image-reveal aspect-[4/5]"><img src={imagery.collectionImage} width={1808} height={1200} loading="lazy" alt={title} className="size-full object-cover" style={{ objectPosition: position }} /></div><div className="flex items-end justify-between p-6"><div><p className="font-display text-2xl">{title}</p><p className="mt-2 text-[10px] uppercase tracking-[0.16em] text-muted-foreground">{text}</p></div><span className="transition-transform group-hover:translate-x-1">→</span></div></Link>)}</div>
+      <div className="grid gap-px bg-border lg:grid-cols-3">
+        <CollectionCard title="Ode to Iris" text="Ocean glaze · sculptural petals" position="left" />
+        <CollectionCard title="The Rock" text="Primitive form · tactile warmth" position="center" />
+        <Link to="/bespoke" className="group bg-background"><CardContent title="Bespoke Studio" text="Your memory · made into light" position="right" /></Link>
+      </div>
     </div></section>
 
-    <section className="grid min-h-[720px] lg:grid-cols-2"><div className="image-reveal min-h-[500px]"><img src={imagery.collectionsImage ?? imagery.collectionImage} width={1808} height={1200} loading="lazy" alt="Bespoke printed lampshade in the gallery" className="size-full object-cover object-right" /></div><div className="flex items-center bg-muted px-6 py-20 sm:px-16"><div className="max-w-xl"><p className="editorial-kicker">Bespoke / Maatwerk</p><h2 className="editorial-title mt-5 text-5xl sm:text-6xl">A memory,<br/><i>illuminated.</i></h2><p className="mt-8 text-sm leading-8 text-muted-foreground">Transform a meaningful photograph, artwork or textile into a one-of-a-kind shade. We refine every composition with you before making begins.</p><Button asChild variant="gallery" className="mt-9"><Link to="/bespoke"><Upload /> Start your piece</Link></Button></div></div></section>
+    <section className="grid min-h-[720px] lg:grid-cols-2"><div className="image-reveal min-h-[500px]"><img src={imagery.collectionImage} width={1808} height={1200} loading="lazy" alt="Bespoke printed lampshade in the gallery" className="size-full object-cover object-right" /></div><div className="flex items-center bg-muted px-6 py-20 sm:px-16"><div className="max-w-xl"><p className="editorial-kicker">Bespoke / Maatwerk</p><h2 className="editorial-title mt-5 text-5xl sm:text-6xl">A memory,<br/><i>illuminated.</i></h2><p className="mt-8 text-sm leading-8 text-muted-foreground">Transform a meaningful photograph, artwork or textile into a one-of-a-kind shade. We refine every composition with you before making begins.</p><Button asChild variant="gallery" className="mt-9"><Link to="/bespoke"><Upload /> Start your piece</Link></Button></div></div></section>
 
     <section className="section-shell py-24 sm:py-36"><div className="grid items-center gap-14 lg:grid-cols-[1.15fr_.85fr]"><div className="image-reveal aspect-[4/3]"><img src={imagery.craftImage} width={1600} height={1200} loading="lazy" alt="Leather piping hand-stitched onto a felt shade" className="size-full object-cover" /></div><div className="lg:pl-10"><p className="editorial-kicker">Our signature</p><h2 className="editorial-title mt-5 text-4xl sm:text-5xl">The line made<br/>by two hands.</h2><p className="mt-7 text-sm leading-8 text-muted-foreground">Our double-stitched leather bies is more than an edge. It is a quiet signature—drawn around every shade by hand, one considered stitch at a time.</p><Link to="/our-craft" className="mt-8 inline-flex items-center gap-3 border-b border-accent pb-2 text-[10px] uppercase tracking-[0.18em]">Discover our craft <ArrowRight className="size-3" /></Link></div></div></section>
   </>;
+}
+
+function CollectionCard({ title, text, position }: { title: string; text: string; position: string }) {
+  return <Link to="/product/$id" params={{ id: "1" }} className="group bg-background"><CardContent title={title} text={text} position={position} /></Link>;
+}
+
+function CardContent({ title, text, position }: { title: string; text: string; position: string }) {
+  return <><div className="image-reveal aspect-[4/5]"><img src={imagery.collectionImage} width={1808} height={1200} loading="lazy" alt={title} className="size-full object-cover" style={{ objectPosition: position }} /></div><div className="flex items-end justify-between p-6"><div><p className="font-display text-2xl">{title}</p><p className="mt-2 text-[10px] uppercase tracking-[0.16em] text-muted-foreground">{text}</p></div><span className="transition-transform group-hover:translate-x-1">→</span></div></>;
 }
