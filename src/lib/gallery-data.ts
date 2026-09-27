@@ -5,6 +5,25 @@ import foundersImage from "@/assets/ing-yve-founders.jpg";
 
 export const imagery = { heroImage, collectionImage, craftImage, foundersImage };
 
+export const collections = [
+  {
+    slug: "equestrian",
+    number: "01",
+    title: "Equestrian",
+    subtitle: "Leather, movement and sculptural strength",
+    image: heroImage,
+    mood: "Light Natural",
+  },
+  {
+    slug: "vilt",
+    number: "02",
+    title: "Vilt",
+    subtitle: "Soft architecture in Dutch wool felt",
+    image: collectionImage,
+    mood: "Ode to Iris",
+  },
+] as const;
+
 export const products = [
   { id: "1", title: "The Rock No. 1", material: "Stoneware · Wool felt", price: "€ 1.295", category: "Table Lamps", materialFilter: "Ceramics", image: heroImage, position: "center" },
   { id: "2", title: "Iris No. 3", material: "Glazed ceramic · Silk", price: "€ 1.475", category: "Table Lamps", materialFilter: "Ceramics", image: collectionImage, position: "left" },
