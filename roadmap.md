@@ -1,0 +1,5 @@
+- [ ] Remove the global theme switcher and lock the gallery to Dark Luxury
+- [ ] Rebuild the homepage as a zero-scroll, single-image gallery stage
+- [ ] Reframe Collections beneath Maatwerk with Equestrian and Vilt stacked vertically
+- [ ] Add collection detail pages with collection-specific moodboards
+- [ ] Verify desktop and mobile rendering, navigation, and build status

@@ -28,7 +28,7 @@
   --color-destructive-foreground: oklch(0.98 0 0);
 }
 
-:root, [data-theme="dark"] {
+:root {
   --background: oklch(0.225 0.01 250);
   --foreground: oklch(0.92 0.014 85);
   --card: oklch(0.27 0.01 250);
@@ -46,41 +46,8 @@
   --wash: oklch(0.42 0.018 60);
 }
 
-[data-theme="natural"] {
-  --background: oklch(0.97 0.012 82);
-  --foreground: oklch(0.27 0.014 60);
-  --card: oklch(0.94 0.018 80);
-  --primary: oklch(0.34 0.015 55);
-  --primary-foreground: oklch(0.97 0.012 82);
-  --secondary: oklch(0.73 0.025 75);
-  --muted: oklch(0.9 0.018 80);
-  --muted-foreground: oklch(0.5 0.02 65);
-  --accent: oklch(0.56 0.03 70);
-  --accent-foreground: oklch(0.98 0.01 80);
-  --border: oklch(0.55 0.02 70 / 0.3);
-  --admin: oklch(0.84 0.025 78);
-  --admin-foreground: oklch(0.26 0.012 60);
-  --surface: oklch(0.92 0.018 80);
-  --wash: oklch(0.82 0.026 75);
-}
-
-[data-theme="iris"] {
-  --background: oklch(0.96 0.009 85);
-  --foreground: oklch(0.28 0.054 215);
-  --card: oklch(0.92 0.025 210);
-  --primary: oklch(0.38 0.071 215);
-  --primary-foreground: oklch(0.97 0.008 85);
-  --secondary: oklch(0.7 0.075 210);
-  --muted: oklch(0.89 0.027 205);
-  --muted-foreground: oklch(0.48 0.047 215);
-  --accent: oklch(0.69 0.13 82);
-  --accent-foreground: oklch(0.23 0.045 215);
-  --border: oklch(0.38 0.07 215 / 0.23);
-  --admin: oklch(0.3 0.062 215);
-  --admin-foreground: oklch(0.96 0.009 85);
-  --surface: oklch(0.9 0.035 205);
-  --wash: oklch(0.72 0.06 205);
-}
+.mood-natural { --mood-one: oklch(0.87 0.02 82); --mood-two: oklch(0.68 0.025 70); --mood-three: oklch(0.5 0.022 58); --mood-four: oklch(0.96 0.01 85); }
+.mood-iris { --mood-one: oklch(0.38 0.071 215); --mood-two: oklch(0.7 0.075 210); --mood-three: oklch(0.96 0.009 85); --mood-four: oklch(0.7 0.135 82); }
 
 @layer base {
   * { border-color: var(--border); }
@@ -99,4 +66,6 @@
 
 @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 .animate-rise { animation: rise 900ms ease both; }
+.gallery-image { filter: saturate(.72) contrast(1.04); transition: transform 1800ms cubic-bezier(.2,.7,.2,1), filter 700ms ease; }
+.group:hover .gallery-image { filter: saturate(.9) contrast(1.02); transform: scale(1.018); }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
