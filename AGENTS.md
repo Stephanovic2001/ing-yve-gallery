@@ -9,5 +9,5 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- The storefront uses one permanent Dark Luxury theme; Light Natural and Ode to Iris exist only as collection moodboards, preserving a consistent gallery identity.
+- The shared storefront chrome uses permanent Dark Luxury; only `/collections/light-natural` and `/collections/ode-to-iris` may override content colors with their named palettes.
 - Collection detail routes live under `/collections/$slug`; this keeps Maatwerk as the parent offering while making each collection directly shareable.

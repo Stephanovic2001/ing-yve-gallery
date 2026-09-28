@@ -7,18 +7,18 @@ export const imagery = { heroImage, collectionImage, craftImage, foundersImage }
 
 export const collections = [
   {
-    slug: "equestrian",
+    slug: "light-natural",
     number: "01",
-    title: "Equestrian",
-    subtitle: "Leather, movement and sculptural strength",
+    title: "Light Natural",
+    subtitle: "Linen, warm stone and quiet natural texture",
     image: heroImage,
     mood: "Light Natural",
   },
   {
-    slug: "vilt",
+    slug: "ode-to-iris",
     number: "02",
-    title: "Vilt",
-    subtitle: "Soft architecture in Dutch wool felt",
+    title: "Ode to Iris",
+    subtitle: "Ocean tones, pearl light and sculptural felt",
     image: collectionImage,
     mood: "Ode to Iris",
   },
