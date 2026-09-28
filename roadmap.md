@@ -2,4 +2,4 @@
 - [x] Rebuild the homepage as a zero-scroll, single-image gallery stage
 - [x] Replace the collection archive with Light Natural and Ode to Iris stacked vertically
 - [x] Apply each collection palette exclusively to its own detail page content
-- [ ] Verify desktop and mobile rendering, navigation, and build status
+- [x] Verify desktop and mobile rendering, navigation, and build status
